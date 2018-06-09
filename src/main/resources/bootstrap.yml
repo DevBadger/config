@@ -1,0 +1,31 @@
+server:
+  port: 11551
+
+spring:
+  application:
+    name: config
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/DevBadger/config-properties.git
+          strictHostKeyChecking: false
+          searchPaths:
+            - 'gateway'
+            - 'security'
+            - 'service'
+            - 'zuul'
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:11550/eureka/
+    register-with-eureka: true
+    fetch-registry: false
+  instance:
+    instance-id: ${spring.application.name}_${random.int}:${server.port}
+    preferIpAddress: false
+    hostname: config
+
+logging:
+  path: /var/log/
